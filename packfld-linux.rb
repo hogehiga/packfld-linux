@@ -74,7 +74,7 @@ unless size_check_passed
   exit 1
 end
 
-# ピンパッキング問題を解く(WikipediaのアルゴリズムB)
+# ビンパッキング問題を解く(WikipediaのアルゴリズムB)
 bins = []
 path_and_size.each do |entry|
   ent_size = entry[:size].to_i
