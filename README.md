@@ -1,9 +1,11 @@
-# これは何
+# packfld-linux
+
+## これは何?
 Packfld(<http://www.vector.co.jp/soft/win95/util/se311425.html>)のLinux版です。
 あるディレクトリ内のディレクトリやファイルを、指定した容量以下になるように分割し、そのパスのリストを出力します。
 ビンパッキング問題の解法による振り分けのみが実装されています。
 
-# 実行例
+## 実行例
 ```
 -> % packfld-linux.rb -i /usr/bin -s 37956760
 -> % ls
@@ -40,5 +42,5 @@ packed-files-a29ecc16-3c8a-4963-9989-d39e23de7340-2  packed-files-a29ecc16-3c8a-
 -> % 
 ```
 
-# ライセンス
+## ライセンス
 リポジトリ内にあるLICENSEファイルを参照して下さい。
