@@ -26,16 +26,24 @@ end
 
 # file_or_dirのディスク使用量(ディレクトリの場合はサブディレクトリを含めたもの)を取得する。
 def file_or_dir_size(file_or_dir)
-  if File.symlink?(file_or_dir)
-    File.lstat(file_or_dir).size
-  elsif File.file?(file_or_dir)
-    File.size(file_or_dir)
+  if File.symlink?(file_or_dir) || File.file?(file_or_dir)
+    file_size(file_or_dir)
   else
     size = 0
     Find.find(file_or_dir) do |f|
-      size += File.size(f) if File.file?(f)
+      size += file_size(f) if File.file?(f)
     end
     size
+  end
+end
+
+def file_size(file)
+  if File.symlink?(file)
+    File.lstat(file).size
+  elsif File.file?(file)
+    File.size(file)
+  else
+    raise StandardError.new("argument \"#{file}\" must be a file.")
   end
 end
 
