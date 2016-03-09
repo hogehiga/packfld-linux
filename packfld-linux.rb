@@ -10,6 +10,7 @@
 
 require 'securerandom'
 require 'optparse'
+require 'find'
 
 #####メソッド#####
 # 使い方を表示する。
@@ -23,9 +24,19 @@ def usage
   STDERR.puts "warning: This script make many files in current directory."
 end
 
-# dirのサブディレクトリを含めたディスク使用量を取得する。移植性が低いが、他に方法がわからなかった
-def dir_size(dir)
-  `du -bs \"#{dir}\" | awk '{print $1}'`.chomp
+# file_or_dirのディスク使用量(ディレクトリの場合はサブディレクトリを含めたもの)を取得する。
+def file_or_dir_size(file_or_dir)
+  if File.symlink?(file_or_dir)
+    File.lstat(file_or_dir).size
+  elsif File.file?(file_or_dir)
+    File.size(file_or_dir)
+  else
+    size = 0
+    Find.find(file_or_dir) do |f|
+      size += File.size(f) if File.file?(f)
+    end
+    size
+  end
 end
 
 
@@ -62,7 +73,7 @@ end
 entries.map! {|e| e = "#{params[:i]}/#{e}"}
 size_check_passed = true
 entries.each do |entry|
-  ent_size = dir_size(entry).to_i
+  ent_size = file_or_dir_size(entry).to_i
   if ent_size > div_size
     STDERR.puts "div_size_in_byte(#{div_size}) must be greater than size of directory #{entry} (size is #{ent_size})."
     size_check_passed = false
