@@ -1,5 +1,8 @@
 # packfld-linux
 
+## 注意
+このソフトウェアの開発は中止されました。代わりに <https://github.com/jgoerzen/datapacker> を使って下さい。
+
 ## これは何?
 Packfld(<http://www.vector.co.jp/soft/win95/util/se311425.html>)のLinux版です。
 あるディレクトリ内のディレクトリやファイルを、指定した容量以下になるように分割し、そのパスのリストを出力します。
